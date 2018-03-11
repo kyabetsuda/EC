@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -59,14 +60,13 @@ public class AddressSelectController {
 		if(!result.hasErrors()) {
 			address.setUserid(principal.getName());
 			uaDao.persist(address);
-			
+			//addressidセッション登録
 			HttpSession session = request.getSession(false);
 			if(session == null) {
 				session = request.getSession(true);
 			}
-			
 			session.setAttribute("addressid", address.getAddressid());
-			
+			//redirect
 			mav = new ModelAndView("redirect:/payselect");
 		}else {
 			List<UserAddress> addresses = uaDao.getAddressByUserid(principal.getName());
@@ -79,8 +79,15 @@ public class AddressSelectController {
 	
 	@RequestMapping(value ="/addressselect/{addressid}", method=RequestMethod.POST)
 	public ModelAndView choose(
+			@PathVariable("addressid") int addressid,
+			HttpServletRequest request,
 			ModelAndView mav) {
 		
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			session = request.getSession(true);
+		}
+		session.setAttribute("addressid", addressid);
 		mav = new ModelAndView("redirect:/payselect");
 		return mav;
 	}
