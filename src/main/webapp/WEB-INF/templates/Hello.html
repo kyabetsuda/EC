@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<p th:text="${message}"></p>
+
+<table>
+	<tr th:each="obj : ${datalist}">
+		<td th:text="${obj.getUserid()}"></td>
+		<td th:text="${obj.getUsername()}"></td>
+	</tr>
+</table>
+
+</body>
+</html>

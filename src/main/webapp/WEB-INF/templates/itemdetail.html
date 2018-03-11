@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>itemdetail</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+	<style>
+		img {
+			width: 400px;
+			height: 400px;
+		}
+	</style>
+	<script>
+		function nullCheck(){
+			var quantity = document.getElementById("quantity").value;
+			if(quantity == 0 || quantity == null || quantity == ""){
+				alert("1以上の個数を入力してください");
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
+
+<div th:text="${msg}"></div>
+
+<form method="post" action="/EC/itemdetail" th:if="${check}" onsubmit="return nullCheck()">
+	<div th:object="${item}">
+		<img th:src="@{ ${imgPath} + ${item.getItemid()} + '.jpg' }"/>
+		<input type="hidden" name="itemid" th:value="${item.getItemid()}" />
+		<div th:text="${item.getItemname()}"></div>
+		<div><span th:text="${item.getPrice()}"></span>円</div>
+		<input type="number" id="quantity" name="quantity" placeholder="個数"/>
+	</div>
+	<input type="submit" value="カートに追加"/>
+</form>
+
+</body>
+</html>

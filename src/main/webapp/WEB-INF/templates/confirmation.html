@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>confirmation</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<form method="post" th:if="${check}" action="/EC/confirmation">
+
+	<div th:each="e : ${items}">
+		<img th:src="@{ ${imgPath} + ${e.getItem().getItemid()} + '.jpg' }"/>
+		<div th:text="${e.getItem().getItemname()}"></div>
+		<div><span th:text="${e.getItem().getIncludingtax()}"></span>円</div>
+		<div>個数: <span th:text="${e.getQuantity()}"></span> 個</div>
+		<hr>
+	</div>
+	<div th:text="${total}"></div>
+
+</form>
+
+</body>
+</html>
