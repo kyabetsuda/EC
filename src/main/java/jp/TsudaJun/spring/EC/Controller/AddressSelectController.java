@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,13 @@ public class AddressSelectController {
 			Principal principal,
 			@ModelAttribute("address") UserAddress address,
 			ModelAndView mav) {
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			session = request.getSession(true);
+		}
+		
+		System.out.println(session.getAttribute("addressid"));
+		
 		List<UserAddress> addresses = uaDao.getAddressByUserid(principal.getName());
 		mav.addObject("addresses", addresses);
 		mav.addObject("userid", principal.getName());
@@ -43,6 +51,7 @@ public class AddressSelectController {
 	public ModelAndView register(
 			ModelAndView mav,
 			Principal principal,
+			HttpServletRequest request,
 			@Validated @ModelAttribute("address") UserAddress address,
 			BindingResult result) {
 		
@@ -50,6 +59,14 @@ public class AddressSelectController {
 		if(!result.hasErrors()) {
 			address.setUserid(principal.getName());
 			uaDao.persist(address);
+			
+			HttpSession session = request.getSession(false);
+			if(session == null) {
+				session = request.getSession(true);
+			}
+			
+			session.setAttribute("addressid", address.getAddressid());
+			
 			mav = new ModelAndView("redirect:/payselect");
 		}else {
 			List<UserAddress> addresses = uaDao.getAddressByUserid(principal.getName());
