@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>itemregister</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" th:if="${check}" action="/EC/itemregister" th:object="${item}" enctype="multipart/form-data">
+	<table>
+		<tr>
+			<td><label for="itemname">商品名</label></td>
+			<td>
+				<input type="text" name="itemname" th:field="*{itemname}"/>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<div th:if="${#fields.hasErrors('itemname')}" th:each="e : ${#fields.detailedErrors('itemname')}">
+					<div th:text="${e.message}" style="color : red"></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="price">定価(税抜)</label></td>
+			<td>
+				<input type="number" name="price" th:field="*{price}"/>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="price">在庫</label></td>
+			<td>
+				<input type="number" name="stock" th:field="*{stock}"/>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="itemattribute">商品属性</label></td>
+			<td>
+				<select name="itemattribute">
+					<option th:each="attribute : ${attributes}" th:value="${attribute.getItemattributeno()}" th:text="${attribute.getItemattributenm()}"></option>
+				</select>
+				<div th:if="${#fields.hasErrors('itemattribute')}" th:errors="*{itemattribute}" th:errorclass="err"></div>
+			</td>
+		</tr>
+<!-- 		<tr>
+			<td></td>
+			<td>
+				<div th:if="${#fields.hasErrors('password')}" th:each="e : ${#fields.detailedErrors('password')}">
+					<div th:text="${e.message}" style="color : red"></div>
+				</div>
+			</td>
+		</tr> -->
+		<tr>
+			<td><label for="itemimg">商品画像</label></td>
+			<td>
+				<input type="file" name="file" />
+			</td>
+		</tr>
+		
+		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
+	</table>
+
+</form>
+
+</body>
+</html>

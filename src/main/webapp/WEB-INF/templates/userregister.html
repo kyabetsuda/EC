@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>userregister</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" th:if="${check}" action="/EC/userregister" th:object="${user}">
+	<table>
+		<tr>
+			<td><label for="user_id">ユーザーID</label></td>
+			<td>
+				<input type="text" name="userid" th:field="*{userid}"/>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<div th:if="${#fields.hasErrors('userid')}" th:each="e : ${#fields.detailedErrors('userid')}">
+					<div th:text="${e.message}" style="color : red"></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="user_name">ユーザー名</label></td>
+			<td>
+				<input type="text" name="username" th:field="*{username}"/>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<div th:if="${#fields.hasErrors('username')}" th:each="e : ${#fields.detailedErrors('username')}">
+					<div th:text="${e.message}" style="color : red"></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="password">パスワード</label></td>
+			<td>
+				<input type="password" name="password" th:field="*{password}"/>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<div th:if="${#fields.hasErrors('password')}" th:each="e : ${#fields.detailedErrors('password')}">
+					<div th:text="${e.message}" style="color : red"></div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
+	</table>
+
+</form>
+
+</body>
+</html>

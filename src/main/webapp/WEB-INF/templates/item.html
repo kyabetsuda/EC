@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Item</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+	<style>
+		img {
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script>
+	$(function () {
+		$("#attributes").change(function() {
+			$.ajax({
+				type: "POST",
+		        url: "/EC/itemlist/" + $("#attributes").val(),
+		        success: function(data) {
+ 		        	 	var obj = $.parseJSON(data);
+		        		$("#items").html("");
+		        		for(var i in data){
+		                    $("#items").append("<a href='/EC/itemdetail/" + obj[i].itemid + "' ><img src='" + obj[i].imgPath + obj[i].itemid + ".jpg' /></a>");
+		                    $("#items").append("<div>" + obj[i].itemname + "</div>");
+		            	}
+		        }
+			});
+		});
+	});
+	</script>
+<title>Insert title here</title>
+</head>
+<body>
+
+<form method="post" action="/EC/item">
+	<table>
+		<tr>
+			<td><input type="text" name="word"/></td>
+			<td><input type="submit" value="検索"/></td>
+		</tr>
+	</table>
+
+	<select name="itemattribute" id="attributes">
+		<option >カテゴリーを選択してください</option>
+		<option th:each="attribute : ${attributes}" th:value="${attribute.getItemattributeno()}" th:text="${attribute.getItemattributenm()}"></option>
+	</select>
+	
+</form>
+
+<div id="items">
+	<div th:each = "e : ${items}">
+		<a th:href="@{'/itemdetail/' + ${e.getItemid()} }"><img th:src="@{ ${imgPath} + ${e.getItemid()} + '.jpg' }" /></a>
+		<div th:text="${e.getItemname()}"></div>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>userinfo</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" th:if="${check}" action="/EC/userinfo" th:object="${user}">
+	<table>
+		<tr>
+			<td><label for="user_name">ユーザー名</label></td>
+			<td>
+				<input type="text" name="username" th:value="${user.getUsername()}"/>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<div th:if="${username_null}" style="color : red">ユーザネームを入力してください</div>
+			</td>
+		</tr>
+		
+		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
+	</table>
+
+</form>
+
+</body>
+</html>
