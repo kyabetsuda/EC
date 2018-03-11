@@ -4,10 +4,31 @@
 	<title>confirmation</title>
 	<meta http-equiv="Content-Type"
 		content="text/html; charset=UTF-8" />
+	<style>
+		img {
+			width:100px;
+			height:100px;
+		}
+	</style>
 </head>
 <body>
 
+<p th:text="${msg}"></p>
+
+<div th:if="${error}">カートに商品が登録されていません</div>
+
 <form method="post" th:if="${check}" action="/EC/confirmation">
+
+	<div th:object="${address}">
+		<div th:text="${address.getHostname()}" style="font-weight : bold"></div>
+		<div th:text="${address.getPostcode()}"></div>
+		<div th:text="${address.getAddress()}"></div>
+	</div>
+	<hr>
+	
+	<div>支払い方法 : <span th:text="${howtopay}"></span></div>
+	
+	<hr>
 
 	<div th:each="e : ${items}">
 		<img th:src="@{ ${imgPath} + ${e.getItem().getItemid()} + '.jpg' }"/>
@@ -17,6 +38,8 @@
 		<hr>
 	</div>
 	<div th:text="${total}"></div>
+	
+	<input type="submit" value="購入を確定する"/>
 
 </form>
 

@@ -65,7 +65,7 @@ public class AddressSelectController {
 			if(session == null) {
 				session = request.getSession(true);
 			}
-			session.setAttribute("addressid", address.getAddressid());
+			session.setAttribute("addressid", String.valueOf(address.getAddressid()));
 			//redirect
 			mav = new ModelAndView("redirect:/payselect");
 		}else {
@@ -87,7 +87,7 @@ public class AddressSelectController {
 		if(session == null) {
 			session = request.getSession(true);
 		}
-		session.setAttribute("addressid", addressid);
+		session.setAttribute("addressid", String.valueOf(addressid));
 		mav = new ModelAndView("redirect:/payselect");
 		return mav;
 	}

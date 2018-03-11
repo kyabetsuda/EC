@@ -25,6 +25,18 @@ public class UserAddressDao {
 			return ret;
 	}
 	
+	public UserAddress getAddressByAddressid(int addressid){
+		UserAddress ret = null;
+		try {
+			ret = (UserAddress) manager.createNativeQuery("select * from useraddress where addressid = :addressid", UserAddress.class)
+					.setParameter("addressid", addressid)
+					.getSingleResult();
+		}catch(Exception e) {
+			
+		}
+		return ret;
+}
+	
 	@Transactional
 	public void persist(UserAddress address) {
 		manager.persist(address);
