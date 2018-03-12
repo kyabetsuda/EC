@@ -24,6 +24,9 @@ public class Sell {
 	private int includingtax;
 	
 	@Column
+	private int quantity;
+	
+	@Column
 	private int itemid;
 	
 	@Column
@@ -75,6 +78,14 @@ public class Sell {
 
 	public int getAddressid(){
 		return addressid;
+	}
+	
+	public void setQuantity(int quantity){
+		this.quantity = quantity;
+	}
+
+	public int getQuantity(){
+		return quantity;
 	}
 
 }

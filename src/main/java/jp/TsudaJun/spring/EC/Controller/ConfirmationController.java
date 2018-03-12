@@ -1,5 +1,6 @@
 package jp.TsudaJun.spring.EC.Controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.TsudaJun.spring.EC.DAO.SellDao;
 import jp.TsudaJun.spring.EC.DAO.UserAddressDao;
 import jp.TsudaJun.spring.EC.model.Cart;
 import jp.TsudaJun.spring.EC.model.CartItem;
+import jp.TsudaJun.spring.EC.model.Sell;
 import jp.TsudaJun.spring.EC.model.UserAddress;
 
 @Controller
@@ -22,6 +25,9 @@ public class ConfirmationController {
 	
 	@Autowired
 	UserAddressDao uaDao;
+	
+	@Autowired
+	SellDao sDao;
 	
 	@Value("${img.accessPath}")
 	private String accessPath;
@@ -66,9 +72,30 @@ public class ConfirmationController {
 	@RequestMapping(value ="/confirmation", method=RequestMethod.POST)
 	public ModelAndView buy(
 			ModelAndView mav,
+			Principal principal,
 			HttpServletRequest request) {
 		
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			session = request.getSession(true);
+		}
 		
+		Cart cart = (Cart)session.getAttribute("cart");
+		List<CartItem> items = cart.getCartItems();
+		
+		for(CartItem item : items) {
+			
+			Sell sell = new Sell();
+			sell.setIncludingtax(item.getItem().getIncludingtax() * item.getQuantity());
+			sell.setQuantity(item.getQuantity());
+			sell.setItemid(item.getItem().getItemid());
+			sell.setUserid(principal.getName());
+			sell.setAddressid(Integer.parseInt((String) session.getAttribute("addressid")));
+			sDao.persist(sell);
+		}
+		
+		session.removeAttribute("cart");
+		mav = new ModelAndView("redirect:/bought");
 		return mav;
 	}
 
