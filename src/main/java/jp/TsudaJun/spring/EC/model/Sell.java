@@ -29,6 +29,9 @@ public class Sell {
 	@Column
 	private String userid;
 	
+	@Column
+	private int addressid;
+	
 	public void setSellid(int sellid) {
 		this.sellid = sellid;
 	}
@@ -64,6 +67,14 @@ public class Sell {
 
 	public String getUserid(){
 		return userid;
+	}
+	
+	public void setAddressid(int addressid){
+		this.addressid = addressid;
+	}
+
+	public int getAddressid(){
+		return addressid;
 	}
 
 }

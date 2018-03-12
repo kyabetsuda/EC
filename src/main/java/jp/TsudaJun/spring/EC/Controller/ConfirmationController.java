@@ -62,5 +62,14 @@ public class ConfirmationController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value ="/confirmation", method=RequestMethod.POST)
+	public ModelAndView buy(
+			ModelAndView mav,
+			HttpServletRequest request) {
+		
+		
+		return mav;
+	}
 
 }
