@@ -19,5 +19,11 @@ public class SellDao {
 	public void persist(Sell sell) {
 		manager.persist(sell);
 	}
+	
+	public void close() {
+		if (manager.isOpen()) {
+            manager.close();
+        }
+	}
 
 }

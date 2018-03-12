@@ -24,6 +24,11 @@ public class ItemDao {
 		manager.persist(item);
 	}
 	
+	@Transactional
+	public void merge(Item item) {
+		manager.merge(item);
+	}
+	
 	public List<Item> getAllItems(){
 		List<Item> ret = manager.createNativeQuery("select * from item", Item.class).getResultList();
 		return ret;

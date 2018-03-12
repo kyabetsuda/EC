@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.TsudaJun.spring.EC.DAO.ItemDao;
 import jp.TsudaJun.spring.EC.DAO.SellDao;
 import jp.TsudaJun.spring.EC.DAO.UserAddressDao;
 import jp.TsudaJun.spring.EC.model.Cart;
 import jp.TsudaJun.spring.EC.model.CartItem;
+import jp.TsudaJun.spring.EC.model.Item;
 import jp.TsudaJun.spring.EC.model.Sell;
 import jp.TsudaJun.spring.EC.model.UserAddress;
 
@@ -28,6 +30,9 @@ public class ConfirmationController {
 	
 	@Autowired
 	SellDao sDao;
+	
+	@Autowired
+	ItemDao iDao;
 	
 	@Value("${img.accessPath}")
 	private String accessPath;
@@ -92,6 +97,10 @@ public class ConfirmationController {
 			sell.setUserid(principal.getName());
 			sell.setAddressid(Integer.parseInt((String) session.getAttribute("addressid")));
 			sDao.persist(sell);
+			sDao.close();
+			Item item_entity  = iDao.getItemById(item.getItem().getItemid());
+			item_entity.setStock(item_entity.getStock() - item.getQuantity());
+			iDao.merge(item_entity);
 		}
 		
 		session.removeAttribute("cart");
