@@ -89,7 +89,18 @@ public class ConfirmationController {
 		List<CartItem> items = cart.getCartItems();
 		
 		for(CartItem item : items) {
+			//在庫を減らす
+			Item item_entity  = iDao.getItemById(item.getItem().getItemid());
+			int stock = item_entity.getStock() - item.getQuantity();
+			if(stock < 0) {
+				mav = new ModelAndView("redirect:/error");
+				return mav;
+			}
+			item_entity.setStock(stock);
+			iDao.merge(item_entity);
+			iDao.close();
 			
+			//sellテーブルに登録
 			Sell sell = new Sell();
 			sell.setIncludingtax(item.getItem().getIncludingtax() * item.getQuantity());
 			sell.setQuantity(item.getQuantity());
@@ -98,9 +109,6 @@ public class ConfirmationController {
 			sell.setAddressid(Integer.parseInt((String) session.getAttribute("addressid")));
 			sDao.persist(sell);
 			sDao.close();
-			Item item_entity  = iDao.getItemById(item.getItem().getItemid());
-			item_entity.setStock(item_entity.getStock() - item.getQuantity());
-			iDao.merge(item_entity);
 		}
 		
 		session.removeAttribute("cart");

@@ -19,6 +19,10 @@ public class ItemDao {
 	@PersistenceContext
 	EntityManager manager;
 	
+	public void close() {
+		manager.clear();
+	}
+	
 	@Transactional
 	public void persist(Item item) {
 		manager.persist(item);
