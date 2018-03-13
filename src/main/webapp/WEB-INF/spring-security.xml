@@ -18,6 +18,10 @@
 		<sec:custom-filter position="FORM_LOGIN_FILTER" ref="applicationUsernamePasswordAuthenticationFilter" />
 	       
 		<sec:logout logout-url="/logout" logout-success-url="/login" invalidate-session="true" />
+		
+		<sec:session-management>
+            <sec:concurrency-control max-sessions="1" />
+        </sec:session-management>
 	</sec:http>
 	   
 	<!-- ※ログイン画面の指定。認証なしでアクセスするとここに飛ばされる -->

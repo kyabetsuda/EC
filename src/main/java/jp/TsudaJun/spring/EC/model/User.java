@@ -81,5 +81,18 @@ public class User{
 	public String getPassword(){
 		return password;
 	}
+	
+	@Override
+    public boolean equals(Object o) {
+            return userid.equals(((User) o).getUserid());
+    }
+
+    /**
+     * Returns the hashcode of the {@code username}.
+     */
+	@Override
+    public int hashCode() {
+        return userid.hashCode();
+    }
 
 }
