@@ -30,9 +30,12 @@
 		<input type="hidden" name="itemid" th:value="${item.getItemid()}" />
 		<div th:text="${item.getItemname()}"></div>
 		<div><span th:text="${item.getPrice()}"></span>円</div>
+		<div>在庫 : <span th:text="${item.getStock()}"></span>個</div>
+		<div th:if="${stockCheck}" style="color : red">在庫が足りません</div>
 		<input type="number" id="quantity" name="quantity" placeholder="個数"/>
 	</div>
-	<input type="submit" value="カートに追加"/>
+	<input th:if="${submitCheck}" type="submit" value="カートに追加"/>
+	<input th:if="${disabled}" type="submit" value="在庫がありません" disabled/>
 </form>
 
 </body>

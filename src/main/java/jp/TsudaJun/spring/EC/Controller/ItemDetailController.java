@@ -42,6 +42,11 @@ public class ItemDetailController {
 			mav.addObject("item",item);
 			mav.addObject("imgPath",imgPath);
 			mav.addObject("check",true);
+			if(item.getStock() == 0) {
+				mav.addObject("disabled", true);
+			}else {
+				mav.addObject("submitCheck", true);
+			}
 		}else {
 			mav = new ModelAndView("redirect:/error");
 		}
@@ -57,6 +62,20 @@ public class ItemDetailController {
 			@RequestParam("itemid") int itemid,
 			@RequestParam("quantity") int quantity) {
 		Item item = dao.getItemById(itemid);
+		if(item.getStock() < quantity) {
+			mav.addObject("item",item);
+			mav.addObject("imgPath",imgPath);
+			mav.addObject("check",true);
+			mav.addObject("stockCheck", true);
+			if(item.getStock() == 0) {
+				mav.addObject("disabled", true);
+			}else {
+				mav.addObject("submitCheck", true);
+			}
+			return mav;
+		}
+		
+		
 		HttpSession session = request.getSession(false);
 		if (session == null){
 			session = request.getSession(true);
