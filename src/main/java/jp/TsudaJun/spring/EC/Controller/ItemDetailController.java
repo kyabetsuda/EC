@@ -1,6 +1,8 @@
 package jp.TsudaJun.spring.EC.Controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jp.TsudaJun.spring.EC.DAO.ItemDao;
 import jp.TsudaJun.spring.EC.model.Cart;
+import jp.TsudaJun.spring.EC.model.CartItem;
 import jp.TsudaJun.spring.EC.model.Item;
 
 @Controller
@@ -60,12 +63,14 @@ public class ItemDetailController {
 		}
 		
 		Cart cart = (Cart)session.getAttribute("cart");
+		CartItem cartItem = new CartItem(item, quantity);
+		
 		if(cart == null) {
 			cart = new Cart();
-			cart.putItem(item, quantity);
+			cart.putItem(cartItem);
 			session.setAttribute("cart", cart);
 		}else {
-			cart.putItem(item, quantity);
+			cart.putItem(cartItem);
 			session.setAttribute("cart", cart);
 		}
 	
