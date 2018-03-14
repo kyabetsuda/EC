@@ -52,6 +52,21 @@ public class ItemDao {
 		return ret;
 	}
 	
+	public List<Item> getItemByUsreid(String userid) {
+		
+		List<Item> ret = null;
+		try {
+			ret = manager.createNativeQuery("select * from item where userid = :id", Item.class)
+					.setParameter("id", userid)
+					.getResultList();
+		}catch(Exception e) {
+			return null;
+		}
+		
+		return ret;
+	}
+	
+	
 	public List<Item> getItemsByAttributeno(int attributeno){
 		List<Item> ret = manager.createNativeQuery("select * from item where itemattribute = :no", Item.class)
 									.setParameter("no", attributeno)

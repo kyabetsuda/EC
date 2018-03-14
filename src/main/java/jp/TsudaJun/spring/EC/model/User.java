@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -24,6 +26,7 @@ import jp.TsudaJun.spring.EC.validation.User.AlreadyExists;
 @Entity
 @Table (name="user")
 public class User{
+
 
 	@Id
 	@Column
@@ -81,18 +84,6 @@ public class User{
 	public String getPassword(){
 		return password;
 	}
-	
-	@Override
-    public boolean equals(Object o) {
-            return userid.equals(((User) o).getUserid());
-    }
 
-    /**
-     * Returns the hashcode of the {@code username}.
-     */
-	@Override
-    public int hashCode() {
-        return userid.hashCode();
-    }
 
 }

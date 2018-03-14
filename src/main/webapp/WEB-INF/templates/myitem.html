@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>myitem</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+	<style>
+		img {
+			width : 100px;
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+
+<div th:text="${msg}"></div>
+<div th:if="${check}">登録した商品がありません</div>
+
+<div th:each = "e : ${items}">
+		<a th:href="@{'/myitemdetail/' + ${e.getItemid()} }"><img th:src="@{ ${imgPath} + ${e.getItemid()} + '.jpg' }" /></a>
+		<div th:text="${e.getItemname()}"></div>
+</div>
+
+</body>
+</html>

@@ -8,7 +8,7 @@
          http://www.springframework.org/schema/security
          http://www.springframework.org/schema/security/spring-security.xsd">	
 	
-	<sec:http use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
+	<sec:http  use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
 		<sec:intercept-url pattern="/login" access="permitAll" />
 		<sec:intercept-url pattern="/userregister" access="permitAll" />
 		<sec:intercept-url pattern="/*.jpg" access="permitAll" />
@@ -16,12 +16,10 @@
 	       
 		<!-- ※ログインフォーム向けにある既存の認証処理を独自認証処理に置き換える。 -->
 		<sec:custom-filter position="FORM_LOGIN_FILTER" ref="applicationUsernamePasswordAuthenticationFilter" />
-	       
+<!-- 		<sec:session-management session-fixation-protection="none" />
+        	<sec:custom-filter position="SESSION_MANAGEMENT_FILTER" ref="customSessionManagementFilter"/> -->
+        	
 		<sec:logout logout-url="/logout" logout-success-url="/login" invalidate-session="true" />
-		
-		<sec:session-management>
-            <sec:concurrency-control max-sessions="1" />
-        </sec:session-management>
 	</sec:http>
 	   
 	<!-- ※ログイン画面の指定。認証なしでアクセスするとここに飛ばされる -->
@@ -56,5 +54,15 @@
 	<!-- ※認証通過時、認証ユーザの提供するプロバイダ -->
 	<bean id="applicationUsernamePasswordAuthenticationProvider" class="jp.TsudaJun.spring.EC.security.ApplicationUsernamePasswordAuthenticationProvider">
 	</bean>
+	
+	<!-- Session チェック用のfilterです。 -->
+    <bean id="customSessionManagementFilter"
+                  class="jp.TsudaJun.spring.EC.security.CustomSessionManagementFilter">
+        <constructor-arg name="securityContextRepository"
+                                 ref="httpSessionSecurityContextRepository" />
+    </bean>
+     
+    <bean id="httpSessionSecurityContextRepository"
+                  class="org.springframework.security.web.context.HttpSessionSecurityContextRepository"/>
     
 </beans>
