@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -33,6 +34,7 @@ public class Item {
 	private int tax;
 	
 	@Column
+	@Min(value = 0, message="0以上の数を入力してください")
 	private int price;
 	
 	@Column(insertable = false, updatable = false)
@@ -48,6 +50,7 @@ public class Item {
 	private int itemattribute;
 	
 	@Column
+	@Min(value = 0, message="0以上の数を入力してください")
 	private int stock;
 	
 	@OneToMany(cascade = CascadeType.ALL)

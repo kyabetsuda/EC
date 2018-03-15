@@ -10,17 +10,32 @@
 			height: 400px;
 		}
 	</style>
-	<script>
-		function nullCheck(){
-			var quantity = document.getElementById("quantity").value;
-			if(quantity == 0 || quantity == null || quantity == ""){
-				alert("1以上の個数を入力してください");
-				return false;
-			}
-		}
-	</script>
 </head>
 <body>
+
+<div th:text="${msg}"></div>
+
+<div th:object="${item}">
+<form method="post" th:action="@{ '/myitemdetail/' + ${item.getItemid()} }">
+	<div th:object="${item}">
+		<img th:src="@{ ${imgPath} + ${item.getItemid()} + '.jpg' }"/>
+		<div><input type="text" name="itemname" th:value="${item.getItemname()}" th:field="*{itemname}"></div>
+		<div th:if="${#fields.hasErrors('itemname')}" th:each="e : ${#fields.detailedErrors('itemname')}">
+					<div th:text="${e.message}" style="color : red"></div>
+		</div>
+		<div><input type="number" name="price" th:value="${item.getPrice()}" th:field="*{price}"/>円</div>
+		<div th:if="${#fields.hasErrors('price')}" th:each="e : ${#fields.detailedErrors('price')}">
+					<div th:text="${e.message}" style="color : red"></div>
+		</div>
+		<div>在庫 : <input type="number" name="stock" th:value="${item.getStock()}" th:field="*{stock}"/>個</div>
+		<div th:if="${#fields.hasErrors('stock')}" th:each="e : ${#fields.detailedErrors('stock')}">
+					<div th:text="${e.message}" style="color : red"></div>
+		</div>
+		<input type="hidden" name="itemattribute" th:value="${item.getItemattribute()}"/>
+ 	</div>
+	<input type="submit" value="商品情報を登録"/>
+</form>
+</div>
 
 </body>
 </html>
