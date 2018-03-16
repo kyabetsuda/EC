@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import jp.TsudaJun.spring.EC.validation.Item.IsInteger;
 
@@ -36,6 +37,7 @@ public class Item {
 	private int tax;
 	
 	@Column
+	@NotNull(message="値段を入力してください")
 	@Min(value = 0, message="0以上の数を入力してください")
 	private int price;
 	
@@ -53,6 +55,7 @@ public class Item {
 	private int itemattribute;
 	
 	@Column
+	@NotNull(message="在庫を入力してください")
 	@Min(value = 0, message="0以上の数を入力してください")
 	private int stock;
 	

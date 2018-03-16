@@ -57,8 +57,7 @@ public class UserInfoController {
 		if(flg) {
 			user.setUsername(username);
 			dao.merge(user);
-			mav.addObject("msg", "ユーザー情報が登録されました。");
-			mav.addObject("check", false);
+			mav = new ModelAndView("redirect:/kanryo/?msg=userinfo");
 		}else {
 			mav.addObject("user",user);
 			mav.addObject("msg","エラーが発生しました");

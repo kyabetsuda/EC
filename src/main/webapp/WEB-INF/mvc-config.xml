@@ -13,7 +13,7 @@
     <mvc:annotation-driven />
     
     <context:component-scan base-package="jp.TsudaJun.spring.EC" /> 
-    <context:property-placeholder location="classpath:message.properties"/>  
+    <context:property-placeholder location="classpath:messages.properties"/>  
 
 	<bean id="templateResolver" class="org.thymeleaf.spring3.templateresolver.SpringResourceTemplateResolver">
 	  <property name="prefix" value="/WEB-INF/templates/" />
@@ -73,6 +73,12 @@
 	<!-- 画像のアップロードを行うためのbean -->
 	<bean id="multipartResolver"
         class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</bean>
+	
+	<!-- メッセージの外部化 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
 	</bean>
 
 

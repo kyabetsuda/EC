@@ -18,6 +18,12 @@ public class KanryoController {
 		mav.setViewName("kanryo");
 		if(msg.equals("myitemdetail")) {
 			message = "商品情報が登録されました";
+		}else if(msg.equals("userregister")) {
+			message = "ユーザーが登録されました";
+		}else if(msg.equals("itemregister")) {
+			message = "商品が登録されました";
+		}else if(msg.equals("userinfo")) {
+			message = "ユーザー情報が登録されました";
 		}
 		mav.addObject("msg", message);
 		return mav;

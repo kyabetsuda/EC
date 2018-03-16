@@ -38,8 +38,7 @@ public class UserRegisterController {
 			ModelAndView mav) {
 		if(!result.hasErrors()) {
 			dao.persist(user);;
-			mav.addObject("msg", "ユーザーが登録されました。");
-			mav.addObject("check", false);
+			mav = new ModelAndView("redirect:/kanryo/?msg=userregister");
 		}else{
 			mav.addObject("msg","エラーが発生しました");
 			mav.addObject("check", true);

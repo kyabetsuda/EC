@@ -89,8 +89,7 @@ public class ItemRegisterController {
 				BufferedImage img = ImageIO.read(new File(imgPath + "noimage.png"));
 				ImageIO.write(img, "jpg", new File(imgPath + item.getItemid() +".jpg"));
 			}
-			mav.addObject("msg", "商品が登録されました");
-			mav.addObject("check", false);
+			mav = new ModelAndView("redirect:/kanryo/?msg=itemregister");
 		}else{
 			mav.addObject("msg","エラーが発生しました");
 			List<ItemAttribute> attributes = iaDao.getAllAttributes();
