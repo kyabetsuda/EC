@@ -55,13 +55,15 @@ public class MyItemController {
 	@RequestMapping(value ="/myitem", method=RequestMethod.POST)
 	public ModelAndView search(
 			ModelAndView mav,
+			Principal principal,
 			@RequestParam("word") String word,
 			@RequestParam("itemattribute") String attributeno) {
 		List<Item> items = null;
+		String userid = principal.getName();
 		if(attributeno.equals("カテゴリーを選択してください")) {
-			items = iDao.getItemsByWord(word);
+			items = iDao.getItemsByWordAndUserid(word, userid);
 		}else{
-			items = iDao.getItemsByWordAndAttribute(word, Integer.parseInt(attributeno));
+			items = iDao.getItemsByWordAndAttributeAndUserid(word, Integer.parseInt(attributeno), userid);
 		}
 		mav.addObject("items", items);
 		List<ItemAttribute> attributes = iaDao.getAllAttributes();
@@ -76,10 +78,11 @@ public class MyItemController {
 			produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String myItemList(
+			Principal principal,
 			@PathVariable("attributeno") int attributeno)
 			throws JSONException{
 		
-		List<Item> items = iDao.getItemsByAttributeno(attributeno);
+		List<Item> items = iDao.getItemsByUseridAndItemAttribute(principal.getName(), attributeno);
 		JSONArray status = new JSONArray();
 		
 		for(Item item : items) {

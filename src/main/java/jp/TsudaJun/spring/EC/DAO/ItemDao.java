@@ -92,6 +92,23 @@ public class ItemDao {
 		return ret;
 	}
 	
+	public List<Item> getItemsByWordAndAttributeAndUserid(String word, int attributeno, String userid){
+		
+		List<Item> ret = null;
+		try {
+			ret = manager.createNativeQuery("select * from item where itemname LIKE :word AND itemattribute = :no AND userid = :userid"
+					,Item.class)
+					.setParameter("word", "%"+word+"%")
+					.setParameter("no", attributeno)
+					.setParameter("userid", userid)
+					.getResultList();
+		}catch(Exception e) {
+			
+		}
+		
+		return ret;
+	}
+	
 	public List<Item> getItemsByWord(String word){
 		
 		List<Item> ret = null;
@@ -99,6 +116,38 @@ public class ItemDao {
 			ret = manager.createNativeQuery("select * from item where itemname LIKE :word"
 					,Item.class)
 					.setParameter("word", "%"+word+"%")
+					.getResultList();
+		}catch(Exception e) {
+			
+		}
+		
+		return ret;
+	}
+	
+	public List<Item> getItemsByWordAndUserid(String word, String userid){
+		
+		List<Item> ret = null;
+		try {
+			ret = manager.createNativeQuery("select * from item where itemname LIKE :word AND userid = :userid"
+					,Item.class)
+					.setParameter("word", "%"+word+"%")
+					.setParameter("userid", userid)
+					.getResultList();
+		}catch(Exception e) {
+			
+		}
+		
+		return ret;
+	}
+	
+	public List<Item> getItemsByUseridAndItemAttribute(String userid, int itemattribute){
+		
+		List<Item> ret = null;
+		try {
+			ret = manager.createNativeQuery("select * from item where userid = :userid AND itemattribute = :itemattribute"
+					,Item.class)
+					.setParameter("userid", userid)
+					.setParameter("itemattribute", itemattribute)
 					.getResultList();
 		}catch(Exception e) {
 			
