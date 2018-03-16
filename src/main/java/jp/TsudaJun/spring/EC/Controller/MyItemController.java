@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,6 +48,26 @@ public class MyItemController {
 		mav.addObject("items", items);
 		mav.addObject("attributes", attributes);
 		mav.addObject("imgPath", imgPath);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value ="/myitem", method=RequestMethod.POST)
+	public ModelAndView search(
+			ModelAndView mav,
+			@RequestParam("word") String word,
+			@RequestParam("itemattribute") String attributeno) {
+		List<Item> items = null;
+		if(attributeno.equals("カテゴリーを選択してください")) {
+			items = iDao.getItemsByWord(word);
+		}else{
+			items = iDao.getItemsByWordAndAttribute(word, Integer.parseInt(attributeno));
+		}
+		mav.addObject("items", items);
+		List<ItemAttribute> attributes = iaDao.getAllAttributes();
+		mav.addObject("attributes", attributes);
+		mav.addObject("imgPath", imgPath);
+		mav.addObject("msg", "登録した商品");
 		
 		return mav;
 	}

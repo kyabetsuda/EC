@@ -35,10 +35,20 @@
 <div th:text="${msg}"></div>
 <div th:if="${check}">登録した商品がありません</div>
 
-<select name="itemattribute" id="attributes">
-		<option >カテゴリーを選択してください</option>
-		<option th:each="attribute : ${attributes}" th:value="${attribute.getItemattributeno()}" th:text="${attribute.getItemattributenm()}"></option>
-</select>
+<form method="post" action="/EC/myitem">
+	<table>
+		<tr>
+			<td><input type="text" name="word"/></td>
+			<td><input type="submit" value="検索"/></td>
+		</tr>
+	</table>
+
+	<select name="itemattribute" id="attributes">
+			<option >カテゴリーを選択してください</option>
+			<option th:each="attribute : ${attributes}" th:value="${attribute.getItemattributeno()}" th:text="${attribute.getItemattributenm()}"></option>
+	</select>
+
+</form>
 
 <div id="items">
 	<div th:each = "e : ${items}">

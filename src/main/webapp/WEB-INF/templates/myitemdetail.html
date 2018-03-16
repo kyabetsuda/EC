@@ -23,6 +23,15 @@
 		<div th:if="${#fields.hasErrors('itemname')}" th:each="e : ${#fields.detailedErrors('itemname')}">
 					<div th:text="${e.message}" style="color : red"></div>
 		</div>
+		
+		<select th:field="*{itemattribute}" name="itemattribute" id="attributes">
+			<option value="0">カテゴリーを選択してください</option>
+			<option th:each="attribute : ${attributes}" th:value="${attribute.getItemattributeno()}" th:text="${attribute.getItemattributenm()}"></option>
+		</select>
+		<div th:if="${#fields.hasErrors('itemattribute')}" th:each="e : ${#fields.detailedErrors('itemattribute')}">
+					<div th:text="${e.message}" style="color : red"></div>
+		</div>
+		
 		<div><input type="number" name="price" th:value="${item.getPrice()}" th:field="*{price}"/>円</div>
 		<div th:if="${#fields.hasErrors('price')}" th:each="e : ${#fields.detailedErrors('price')}">
 					<div th:text="${e.message}" style="color : red"></div>
@@ -31,7 +40,6 @@
 		<div th:if="${#fields.hasErrors('stock')}" th:each="e : ${#fields.detailedErrors('stock')}">
 					<div th:text="${e.message}" style="color : red"></div>
 		</div>
-		<input type="hidden" name="itemattribute" th:value="${item.getItemattribute()}"/>
  	</div>
 	<input type="submit" value="商品情報を登録"/>
 </form>

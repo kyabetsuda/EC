@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+import jp.TsudaJun.spring.EC.validation.Item.IsInteger;
+
 @Entity
 @Table(name="item")
 public class Item {
@@ -47,6 +49,7 @@ public class Item {
 	private String userid;
 	
 	@Column
+	@IsInteger(message="カテゴリーを選択してください")
 	private int itemattribute;
 	
 	@Column
