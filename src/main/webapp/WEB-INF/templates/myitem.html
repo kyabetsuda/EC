@@ -10,15 +10,41 @@
 			height: 100px;
 		}
 	</style>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script>
+	$(function () {
+		$("#attributes").change(function() {
+			$.ajax({
+				type: "POST",
+		        url: "/EC/myitemlist/" + $("#attributes").val(),
+		        success: function(data) {
+ 		        	 	var obj = $.parseJSON(data);
+		        		$("#items").html("");
+		        		for(var i in data){
+		                    $("#items").append("<a href='/EC/myitemdetail/" + obj[i].itemid + "' ><img src='" + obj[i].imgPath + obj[i].itemid + ".jpg' /></a>");
+		                    $("#items").append("<div>" + obj[i].itemname + "</div>");
+		            	}
+		        }
+			});
+		});
+	});
+	</script>
 </head>
 <body>
 
 <div th:text="${msg}"></div>
 <div th:if="${check}">登録した商品がありません</div>
 
-<div th:each = "e : ${items}">
-		<a th:href="@{'/myitemdetail/' + ${e.getItemid()} }"><img th:src="@{ ${imgPath} + ${e.getItemid()} + '.jpg' }" /></a>
-		<div th:text="${e.getItemname()}"></div>
+<select name="itemattribute" id="attributes">
+		<option >カテゴリーを選択してください</option>
+		<option th:each="attribute : ${attributes}" th:value="${attribute.getItemattributeno()}" th:text="${attribute.getItemattributenm()}"></option>
+</select>
+
+<div id="items">
+	<div th:each = "e : ${items}">
+			<a th:href="@{'/myitemdetail/' + ${e.getItemid()} }"><img th:src="@{ ${imgPath} + ${e.getItemid()} + '.jpg' }" /></a>
+			<div th:text="${e.getItemname()}"></div>
+	</div>
 </div>
 
 </body>
