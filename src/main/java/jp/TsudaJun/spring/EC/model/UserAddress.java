@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import jp.TsudaJun.spring.EC.validation.UserAddress.IsNumber;
 
 @Entity
 @Table(name="useraddress")
@@ -22,15 +25,21 @@ public class UserAddress {
 	private int addressid;
 	
 	@Column
+	@NotEmpty(message="氏名を入力してください")
 	private String hostname;
 
 	@Column
+	@IsNumber(message="郵便番号は数字で入力してください")
+	@Size(min=7, max=7, message="郵便番号は7桁で入力してください")
 	private String postcode;
 	
 	@Column
+	@NotEmpty(message="住所を入力してください")
 	private String address;
 	
 	@Column
+	@IsNumber(message="電話番号は数字で入力してください")
+	@Size(min=7, max=10, message="電話番号は7桁以上10桁以下で入力してください")
 	private String tel;
 	
 	@Column

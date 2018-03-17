@@ -42,8 +42,6 @@ public class UserInfoController {
 	public ModelAndView register(
 			Principal principal,
 			@RequestParam("username") String username,
-			@RequestParam("address") String address,
-			@RequestParam("postcode") String postcode,
 			ModelAndView mav) {
 		
 		User user = dao.getUserById(principal.getName());

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<p th:text="${msg}"></p>
+<p>住所選択</p>
 
 <div th:each = "e : ${addresses}">
 		<form method="post" th:action="@{'/addressselect/' + ${e.getAddressid()} }">
@@ -43,15 +43,39 @@
 			</td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<div th:if="${#fields.hasErrors('postcode')}" th:each="e : ${#fields.detailedErrors('postcode')}">
+					<div th:text="${e.message}" style="color : red"></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<td><label for="address">住所</label></td>
 			<td>
 				<input type="text" name="address" th:field="*{address}"/>
 			</td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<div th:if="${#fields.hasErrors('address')}" th:each="e : ${#fields.detailedErrors('address')}">
+					<div th:text="${e.message}" style="color : red"></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<td><label for="tel">電話番号</label></td>
 			<td>
 				<input type="text" name="tel" th:field="*{tel}"/>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<div th:if="${#fields.hasErrors('tel')}" th:each="e : ${#fields.detailedErrors('tel')}">
+					<div th:text="${e.message}" style="color : red"></div>
+				</div>
 			</td>
 		</tr>
 		

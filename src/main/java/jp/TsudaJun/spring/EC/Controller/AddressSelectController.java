@@ -43,7 +43,6 @@ public class AddressSelectController {
 		mav.addObject("addresses", addresses);
 		mav.addObject("userid", principal.getName());
 		mav.setViewName("addressselect");
-		mav.addObject("msg","住所選択");
 		
 		return mav;
 	}
@@ -72,7 +71,6 @@ public class AddressSelectController {
 			List<UserAddress> addresses = uaDao.getAddressByUserid(principal.getName());
 			mav.addObject("addresses", addresses);
 			mav.addObject("userid", principal.getName());
-			mav.addObject("msg","エラーが発生しました");
 		}
 		return mav;
 	}
