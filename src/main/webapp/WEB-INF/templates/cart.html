@@ -15,7 +15,7 @@
 
 <div th:text="${msg}"></div>
 
-<form method="post" action="/EC/addressselect" th:if="${check}">
+<form method="post" action="/EC/cart" th:if="${check}">
 	<div th:each="e : ${items}">
 		<img th:src="@{ ${imgPath} + ${e.getItem().getItemid()} + '.jpg' }"/>
 		<div th:text="${e.getItem().getItemname()}"></div>

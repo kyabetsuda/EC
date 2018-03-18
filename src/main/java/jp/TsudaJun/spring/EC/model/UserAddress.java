@@ -39,7 +39,7 @@ public class UserAddress {
 	
 	@Column
 	@IsNumber(message="電話番号は数字で入力してください")
-	@Size(min=7, max=10, message="電話番号は7桁以上10桁以下で入力してください")
+	@Size(min=7, max=11, message="電話番号は7桁以上11桁以下で入力してください")
 	private String tel;
 	
 	@Column

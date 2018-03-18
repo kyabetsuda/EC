@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>histroy</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p>購入履歴</p>
+
+	<div th:each = "e : ${sells}">
+		<div th:text="${e.getDate()}" style="font-weight : bold"></div>
+		<div>商品名 : <span th:text="${e.getItemname()}"></span></div>
+		<div>個数 : <span th:text="${e.getSell().getQuantity()}"></span></div>
+		<div>合計金額 : <span th:text="${e.getSell().getIncludingtax()}"></span></div>
+		<div>お届けさき : <span th:text="${e.getAddress()}"></span></div>
+		<hr>
+	</div>
+
+</body>
+</html>

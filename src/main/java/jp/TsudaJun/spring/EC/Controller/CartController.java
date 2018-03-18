@@ -46,5 +46,13 @@ public class CartController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value ="/cart", method=RequestMethod.POST)
+	public ModelAndView toAddressSelect(
+			ModelAndView mav) {
+		
+		mav = new ModelAndView("redirect:/addressselect");
+		return mav;
+	}
 
 }
