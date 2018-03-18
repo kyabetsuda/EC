@@ -16,9 +16,10 @@
 <div th:text="${msg}"></div>
 
 <div th:object="${item}">
-<form method="post" th:action="@{ '/myitemdetail/' + ${item.getItemid()} }">
+<form method="post" th:action="@{ '/myitemdetail/' + ${item.getItemid()} }" enctype="multipart/form-data">
 	<div th:object="${item}">
 		<img th:src="@{ ${imgPath} + ${item.getItemid()} + '.jpg' }"/>
+		<p>画像 : </p><input type="file" name="file" />
 		<div><input type="text" name="itemname" th:value="${item.getItemname()}" th:field="*{itemname}"></div>
 		<div th:if="${#fields.hasErrors('itemname')}" th:each="e : ${#fields.detailedErrors('itemname')}">
 					<div th:text="${e.message}" style="color : red"></div>
