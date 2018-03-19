@@ -38,6 +38,11 @@ public class ItemDao {
 		return ret;
 	}
 	
+	public List<Item> getAllItemsByDesc(){
+		List<Item> ret = manager.createNativeQuery("select * from item order by itemid desc", Item.class).getResultList();
+		return ret;
+	}
+	
 	public Item getItemById(int itemid) {
 		
 		Item ret = null;

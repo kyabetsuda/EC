@@ -20,6 +20,32 @@
 
     <!-- Custom styles for this template -->
     <link th:href="@{ #{static.accessPath} + 'css/freelancer.min.css'}" rel="stylesheet">
+    <style>
+	    	img {
+	    	
+	    		width : 900px;
+	    		height : 650px;
+	    	
+	    	}
+    </style>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+	<script>
+	$(function () {
+		$(window).load(function() {
+			$.ajax({
+				type: "POST",
+		        url: "/EC/getimg",
+		        success: function(data) {
+ 		        	 	var obj = $.parseJSON(data);
+		        		$("#items").html("");
+		        		for(var i in data){
+		        			$("#items").append("<div class='col-md-6 col-lg-4'><a class='portfolio-item d-block mx-auto' href='/EC/itemdetail/" + obj[i].itemid + "'><div class='portfolio-item-caption d-flex position-absolute h-100 w-100'><div class='portfolio-item-caption-content my-auto w-100 text-center text-white'><i class='fa fa-search-plus fa-3x'></i></div></div><img class='img-fluid' src='" + obj[i].imgPath + obj[i].itemid + ".jpg' alt='' width=900 height=650 ></a></div>");
+		            	}
+		        }
+			});
+		});
+	});
+	</script>
 	
 <body id="page-top">
 
@@ -57,66 +83,53 @@
       </div>
     </header>
    	
-   	<section id="contact">
-      <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">Let's Search!</h2>
-        <hr class="star-dark mb-5">
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input class="form-control" id="name" type="text" placeholder="Search"/>
-                </div>
-              </div>
-              <br>
-              <div class="form-group pull-right">
-                <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Send</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+	<section id="contact">
+		<div class="container">
+			<h2 class="text-center text-uppercase text-secondary mb-0">Let's Search!</h2>
+			<hr class="star-dark mb-5">
+			<div class="row">
+				<div class="col-lg-8 mx-auto">
+					<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+					<!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+					<form name="sentMessage" id="contactForm" novalidate="novalidate">
+						<div class="control-group">
+							<div class="form-group floating-label-form-group controls mb-0 pb-2">
+							  <input class="form-control" id="name" type="text" placeholder="Search"/>
+							</div>
+						</div>
+						<br>
+						<div class="form-group pull-right">
+							<button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Search</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
     
-    <section class="portfolio" id="portfolio">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" th:src="@{ #{static.accessPath} + 'img/portfolio/circus.png'}" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" th:src="@{ #{static.accessPath} + 'img/portfolio/circus.png'}" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" th:src="@{ #{static.accessPath} + 'img/portfolio/circus.png'}" alt="">
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+	<section class="portfolio" id="portfolio">
+		<div class="container">
+			<div class="row" id="items">
+					<!-- <div class="col-md-6 col-lg-4">
+						<a class="portfolio-item d-block mx-auto" href="">
+							<img class="img-fluid" th:src="@{ #{static.accessPath} + 'itemimg/15.jpg'}" alt="" width=900 height=650 >
+							<div th:text="${e.getItemname()}"></div>
+						</a>
+					</div>
+					<div class="col-md-6 col-lg-4">
+						<a class="portfolio-item d-block mx-auto" href="">
+							<div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+								<div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+								  <i class="fa fa-search-plus fa-3x"></i>
+								</div>
+							</div>
+							<img class="img-fluid" th:src="@{ #{static.accessPath} + 'itemimg/15.jpg'}" alt="" width=900 height=650 >
+							<div th:text="${e.getItemname()}"></div>
+						</a>
+					</div> -->
+			</div>
+		</div>
+	</section>
     
     
     
@@ -138,7 +151,7 @@
 
 
 	<!-- Bootstrap core JavaScript -->
-    <script th:src="@{ #{static.accessPath} + 'vendor/jquery/jquery.min.js'}"></script>
+    <!-- <script th:src="@{ #{static.accessPath} + 'vendor/jquery/jquery.min.js'}"></script> -->
     <script th:src="@{ #{static.accessPath} + 'vendor/bootstrap/js/bootstrap.bundle.min.js'}"></script>
 
     <!-- Plugin JavaScript -->
