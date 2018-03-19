@@ -28,24 +28,6 @@
 	    	
 	    	}
     </style>
-    <script src="http://code.jquery.com/jquery.min.js"></script>
-	<script>
-	$(function () {
-		$(window).load(function() {
-			$.ajax({
-				type: "POST",
-		        url: "/EC/getimg",
-		        success: function(data) {
- 		        	 	var obj = $.parseJSON(data);
-		        		$("#items").html("");
-		        		for(var i in data){
-		        			$("#items").append("<div class='col-md-6 col-lg-4'><a class='portfolio-item d-block mx-auto' href='/EC/itemdetail/" + obj[i].itemid + "'><div class='portfolio-item-caption d-flex position-absolute h-100 w-100'><div class='portfolio-item-caption-content my-auto w-100 text-center text-white'><i class='fa fa-search-plus fa-3x'></i></div></div><img class='img-fluid' src='" + obj[i].imgPath + obj[i].itemid + ".jpg' alt='' ></a></div>");
-		            	}
-		        }
-			});
-		});
-	});
-	</script>
 	
 <body id="page-top">
 
@@ -82,8 +64,8 @@
         <h2 class="font-weight-light mb-0">Welcome to our EC site!</h2>
       </div>
     </header>
-   	
-	<section id="contact">
+    
+    <section id="contact">
 		<div class="container">
 			<h2 class="text-center text-uppercase text-secondary mb-0">Let's Search!</h2>
 			<hr class="star-dark mb-5">
@@ -118,6 +100,12 @@
 			<h2 class="text-center text-uppercase text-secondary mb-0">What's New</h2>
        		<hr class="star-dark mb-5">
 			<div class="row" id="items">
+				<div th:each="e : ${items}" class="col-md-6 col-lg-4">
+					<a th:href="@{ '/itemdetail/' + ${e.getItemid()} }">
+						<img class="img-fluid" th:src="@{ #{static.accessPath} + 'itemimg/' + ${e.getItemid()} + '.jpg'}" alt="">
+						<div th:text="${e.getItemname()}"></div>
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -142,7 +130,7 @@
 
 
 	<!-- Bootstrap core JavaScript -->
-    <!-- <script th:src="@{ #{static.accessPath} + 'vendor/jquery/jquery.min.js'}"></script> -->
+    <script th:src="@{ #{static.accessPath} + 'vendor/jquery/jquery.min.js'}"></script>
     <script th:src="@{ #{static.accessPath} + 'vendor/bootstrap/js/bootstrap.bundle.min.js'}"></script>
 
     <!-- Plugin JavaScript -->

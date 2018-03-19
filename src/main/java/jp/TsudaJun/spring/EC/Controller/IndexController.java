@@ -41,34 +41,5 @@ public class IndexController {
 		return mav;
 		
 	}
-	
-	@RequestMapping(value ={"/index"}, method=RequestMethod.POST)
-	public ModelAndView search(ModelAndView mav){
-		
-		System.out.println("a");
-		return mav;
-		
-	}
-	
-	@RequestMapping(value = "/getimg", method=RequestMethod.POST,
-			produces="text/plain;charset=UTF-8")
-	@ResponseBody
-	public String roomList()
-			throws JSONException{
-		
-		List<Item> items = iDao.getAllItemsByDesc();
-		JSONArray status = new JSONArray();
-		
-		for(Item item : items) {
-			JSONObject data = new JSONObject();
-			data.put("itemid",item.getItemid());
-			data.put("itemname", item.getItemname());
-			data.put("imgPath", imgPath);
-			status.put(data);
-		}
-
-	    return status.toString();
-		
-	} 
 
 }
