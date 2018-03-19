@@ -13,14 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.TsudaJun.spring.EC.DAO.ItemAttributeDao;
 import jp.TsudaJun.spring.EC.DAO.ItemDao;
 import jp.TsudaJun.spring.EC.model.Item;
+import jp.TsudaJun.spring.EC.model.ItemAttribute;
 
 @Controller
 public class IndexController {
 	
 	@Autowired
 	ItemDao iDao;
+	
+	@Autowired
+	ItemAttributeDao iaDao;
 	
 	@Value("${img.accessPath}")
 	private String imgPath;
@@ -29,8 +34,18 @@ public class IndexController {
 	public ModelAndView show(ModelAndView mav){
 		
 		List<Item> items = iDao.getAllItemsByDesc();
+		List<ItemAttribute> attributes = iaDao.getAllAttributes();
 		mav.addObject("items", items);
+		mav.addObject("attributes", attributes);
 		mav.setViewName("index");
+		return mav;
+		
+	}
+	
+	@RequestMapping(value ={"/index"}, method=RequestMethod.POST)
+	public ModelAndView search(ModelAndView mav){
+		
+		System.out.println("a");
 		return mav;
 		
 	}

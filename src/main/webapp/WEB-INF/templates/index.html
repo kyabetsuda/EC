@@ -39,7 +39,7 @@
  		        	 	var obj = $.parseJSON(data);
 		        		$("#items").html("");
 		        		for(var i in data){
-		        			$("#items").append("<div class='col-md-6 col-lg-4'><a class='portfolio-item d-block mx-auto' href='/EC/itemdetail/" + obj[i].itemid + "'><div class='portfolio-item-caption d-flex position-absolute h-100 w-100'><div class='portfolio-item-caption-content my-auto w-100 text-center text-white'><i class='fa fa-search-plus fa-3x'></i></div></div><img class='img-fluid' src='" + obj[i].imgPath + obj[i].itemid + ".jpg' alt='' width=900 height=650 ></a></div>");
+		        			$("#items").append("<div class='col-md-6 col-lg-4'><a class='portfolio-item d-block mx-auto' href='/EC/itemdetail/" + obj[i].itemid + "'><div class='portfolio-item-caption d-flex position-absolute h-100 w-100'><div class='portfolio-item-caption-content my-auto w-100 text-center text-white'><i class='fa fa-search-plus fa-3x'></i></div></div><img class='img-fluid' src='" + obj[i].imgPath + obj[i].itemid + ".jpg' alt='' ></a></div>");
 		            	}
 		        }
 			});
@@ -91,10 +91,16 @@
 				<div class="col-lg-8 mx-auto">
 					<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
 					<!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-					<form name="sentMessage" id="contactForm" novalidate="novalidate">
+					<form method="post" action="/EC/item" novalidate="novalidate">
+						<div class="form-group">
+							<select class="form-control" name="itemattribute" id="attributes">
+								<option >カテゴリーを選択してください</option>
+								<option th:each="attribute : ${attributes}" th:value="${attribute.getItemattributeno()}" th:text="${attribute.getItemattributenm()}"></option>
+							</select>
+						</div>
 						<div class="control-group">
 							<div class="form-group floating-label-form-group controls mb-0 pb-2">
-							  <input class="form-control" id="name" type="text" placeholder="Search"/>
+							  <input class="form-control" name="word" id="name" type="text" placeholder="Search"/>
 							</div>
 						</div>
 						<br>
@@ -109,24 +115,9 @@
     
 	<section class="portfolio" id="portfolio">
 		<div class="container">
+			<h2 class="text-center text-uppercase text-secondary mb-0">What's New</h2>
+       		<hr class="star-dark mb-5">
 			<div class="row" id="items">
-					<!-- <div class="col-md-6 col-lg-4">
-						<a class="portfolio-item d-block mx-auto" href="">
-							<img class="img-fluid" th:src="@{ #{static.accessPath} + 'itemimg/15.jpg'}" alt="" width=900 height=650 >
-							<div th:text="${e.getItemname()}"></div>
-						</a>
-					</div>
-					<div class="col-md-6 col-lg-4">
-						<a class="portfolio-item d-block mx-auto" href="">
-							<div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-								<div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-								  <i class="fa fa-search-plus fa-3x"></i>
-								</div>
-							</div>
-							<img class="img-fluid" th:src="@{ #{static.accessPath} + 'itemimg/15.jpg'}" alt="" width=900 height=650 >
-							<div th:text="${e.getItemname()}"></div>
-						</a>
-					</div> -->
 			</div>
 		</div>
 	</section>
