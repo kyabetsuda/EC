@@ -26,6 +26,8 @@ public class KanryoController {
 			message = "ユーザー情報が登録されました";
 		}else if(msg.equals("itemdetail")) {
 			message = "商品がカートに追加されました";
+		}else if(msg.equals("confirmation")) {
+			message = "商品の購入が確定されました";
 		}
 		mav.addObject("msg", message);
 		return mav;

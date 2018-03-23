@@ -62,23 +62,24 @@ public class MyItemDetailController {
 		return mav;
 	}
 	
-	@RequestMapping(value ="/myitemdetail/{itemid}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+	@RequestMapping(value ="/myitemdetail", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public ModelAndView register(
 			ModelAndView mav,
-			@Validated @ModelAttribute("item") Item item,
+			@Validated @ModelAttribute("item") Item item_fake,
 			BindingResult result,
-			@PathVariable("itemid") int itemid,
 			@RequestParam MultipartFile file,
 			Principal principal) throws IllegalStateException, IOException {
 		mav.setViewName("myitemdetail");
 		if(!result.hasErrors()) {
-			//ID
-			item.setItemid(itemid);
+			Item item = iDao.getItemById(item_fake.getItemid());
+			//itemname
+			item.setItemname(item_fake.getItemname());
 			//includingtax
-			BigDecimal price_bd = new BigDecimal(String.valueOf(item.getPrice()));
+			BigDecimal price_bd = new BigDecimal(String.valueOf(item_fake.getPrice()));
 			BigDecimal tax_rate = new BigDecimal(0.08);
 			BigDecimal tax = price_bd.multiply(tax_rate).setScale(0, BigDecimal.ROUND_HALF_UP);
 			BigDecimal includingtax_bd = price_bd.add(tax);
+			item.setPrice(item_fake.getPrice());
 			item.setTax(tax.intValue());
 			item.setIncludingtax(includingtax_bd.intValue());
 			//画像
@@ -86,6 +87,10 @@ public class MyItemDetailController {
 				File imageFile = new File(imgSavePath + item.getItemid() +".jpg");
 				file.transferTo(imageFile);
 			}
+			//stock
+			item.setStock(item_fake.getStock());
+			//itemattribute
+			item.setItemattribute(item_fake.getItemattribute());
 			//userid
 			item.setUserid(principal.getName());
 			//merge

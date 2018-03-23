@@ -110,7 +110,7 @@ public class ConfirmationController {
 		}
 		
 		session.removeAttribute("cart");
-		mav = new ModelAndView("redirect:/bought");
+		mav = new ModelAndView("redirect:/kanryo/?msg=confirmation");
 		return mav;
 	}
 

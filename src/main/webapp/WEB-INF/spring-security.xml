@@ -16,7 +16,7 @@
 		<sec:intercept-url pattern="/cart" access="permitAll" />
 		<sec:intercept-url pattern="/userregister" access="permitAll" />
 		<sec:intercept-url pattern="/kanryo/**" access="permitAll" />
-		<sec:intercept-url pattern="/*.jpg" access="permitAll" />
+		<sec:intercept-url pattern="/static/itemimg/*.jpg" access="permitAll" />
 		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
 	       
 		<!-- ※ログインフォーム向けにある既存の認証処理を独自認証処理に置き換える。 -->

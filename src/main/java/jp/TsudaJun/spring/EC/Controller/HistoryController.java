@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ public class HistoryController {
 	public ModelAndView show(
 			Principal principal,
 			ModelAndView mav) {
+		
 		List<Sell> sells = sDao.getSellsByUserid(principal.getName());
 		List<HyojiSell> hyojiSells = new ArrayList<HyojiSell>();
 		for(Sell sell : sells) {
