@@ -9,8 +9,13 @@
          http://www.springframework.org/schema/security/spring-security.xsd">	
 	
 	<sec:http  use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<sec:intercept-url pattern="/" access="permitAll" />
 		<sec:intercept-url pattern="/login" access="permitAll" />
+		<sec:intercept-url pattern="/item" access="permitAll" />
+		<sec:intercept-url pattern="/itemdetail/**" access="permitAll" />
+		<sec:intercept-url pattern="/cart" access="permitAll" />
 		<sec:intercept-url pattern="/userregister" access="permitAll" />
+		<sec:intercept-url pattern="/kanryo/**" access="permitAll" />
 		<sec:intercept-url pattern="/*.jpg" access="permitAll" />
 		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
 	       

@@ -93,8 +93,7 @@ public class ItemDetailController {
 			session.setAttribute("cart", cart);
 		}
 	
-		mav.addObject("msg","カートに商品が追加されました");
-		mav.addObject("check", false);
+		mav = new ModelAndView("redirect:/kanryo/?msg=itemdetail");
 		
 		return mav;
 	}

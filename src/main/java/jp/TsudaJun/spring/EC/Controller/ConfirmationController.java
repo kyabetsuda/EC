@@ -51,8 +51,6 @@ public class ConfirmationController {
 		String addressid = (String) session.getAttribute("addressid");
 		String howtopay = (String) session.getAttribute("howtopay");
 		
-		mav.addObject("msg","最終確認");
-		
 		if(cart == null) {
 			mav.addObject("error", true);
 			mav.addObject("check", false);

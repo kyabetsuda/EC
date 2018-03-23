@@ -38,7 +38,7 @@ public class ItemContoller {
 			ModelAndView mav) {
 		
 		mav.setViewName("item");
-		List<Item> items = dao.getAllItems();
+		List<Item> items = dao.getAllItemsByDesc();
 		mav.addObject("items", items);
 		List<ItemAttribute> attributes = iaDao.getAllAttributes();
 		mav.addObject("attributes", attributes);

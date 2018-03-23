@@ -57,9 +57,14 @@
     </nav>
 
 	<section class="portfolio" id="portfolio">
-		<br>
-		<br>
 		<div class="container">
+			<br>
+			<br>
+			<br>
+	        <h2 class="pull-left text-uppercase text-secondary mb-0">商品</h2>
+	        <br>
+	        <br>
+	        <br>
 			<div class="row" id="items">
 				<div th:each="e : ${items}" class="col-md-6 col-lg-4">
 					<a th:href="@{ '/itemdetail/' + ${e.getItemid()} }">

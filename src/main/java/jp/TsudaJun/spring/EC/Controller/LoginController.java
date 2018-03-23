@@ -16,7 +16,6 @@ public class LoginController {
 			ModelAndView mav){
 		
 		if(principal == null) {
-			mav.addObject("msg", "ログインページ");
 			mav.addObject("check", true);
 			mav.setViewName("login");
 		}else {
